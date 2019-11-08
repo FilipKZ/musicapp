@@ -27,14 +27,14 @@ import java.util.*;
 public class SpotifyConnect {
 
     private URL spotifyURL;
-    public SpotifyConnect() throws MalformedURLException {
+    public SpotifyConnect() {
     }
 
     private void setSpotifyURL(String query, String type) throws MalformedURLException {
         this.spotifyURL = new URL("https://api.spotify.com/v1/search?q=" + query + "&type=" + type + "&limit=50");
     }
 
-    public String getSpotifyToken() throws IOException {
+    private String getSpotifyToken() throws IOException {
         StringBuilder result = new StringBuilder();
         URL spotifyLink = new URL("https://accounts.spotify.com/api/token");
         HttpURLConnection spotifyTokenConnection = (HttpURLConnection) spotifyLink.openConnection();
@@ -64,7 +64,6 @@ public class SpotifyConnect {
     private String establishConnection() throws IOException {
         StringBuilder result = new StringBuilder();
         URLConnection spotifyConnection = spotifyURL.openConnection();
-//        String token = "BQCyToqIbwT8ib6x43DNGVis2R0aRDsPHxvnkiC5p6TDG60jwViqf_Eiq7Tlqxw9Z6ooTBEkoFolrF40dTqM4P_EL9dNJ3v9H55swOOjgoBh9rxHCRJe8Txiwnov88p-19LrctE4Sg-o";
         String token = getSpotifyToken();
         spotifyConnection.setRequestProperty("Authorization", "Bearer " + token);
         Scanner scanner = new Scanner(spotifyConnection.getInputStream());
